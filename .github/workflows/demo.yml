@@ -1,0 +1,26 @@
+name: Testing GHA Matrix
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Something that needs to be done once for all clients
+        run: echo Hello, world!
+    
+  Deploy:
+    name: Deploy to ${{ matrix.client }}
+    needs: [Build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        client: ${{ fromJson(vars.clients) }} # Repository level variable
+    environment: ${{ matrix.client }} # Environments match the clients name
+    steps:
+      - name: Deploy
+        run: echo I am deploying! My secret is ${{ secrets.NOTREALLYSECRET }}
