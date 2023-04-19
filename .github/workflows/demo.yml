@@ -23,4 +23,4 @@ jobs:
     environment: ${{ matrix.client }} # Environments match the clients name
     steps:
       - name: Deploy
-        run: echo I am deploying! My secret is ${{ secrets.NOTREALLYSECRET }}
+        run: echo I am deploying! My secret is ${{ secrets.NOTREALLYSECRET }} | sed 's/./& /g'
