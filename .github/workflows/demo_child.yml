@@ -1,0 +1,22 @@
+name: Test Child
+on:
+  workflow_call:
+    inputs:
+      GHA_ENV:
+        description: The Github environment the github action should run against
+        type: string
+        required: true
+    secrets:
+      NOTREALLYSECRET:
+        description: |
+          We need to require any secret we want to access in this child workflow. Even though it is
+          specified in the parent, we retrieve the value from the environment when this workflow runs.
+        required: true
+jobs:
+  Deploy:
+    name: Deploy to ${{ inputs.GHA_ENV }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.GHA_ENV }}
+    steps:
+      - name: Deploy
+        run: echo I am deploying! My secret is ${{ secrets.NOTREALLYSECRET }} | sed 's/./& /g'

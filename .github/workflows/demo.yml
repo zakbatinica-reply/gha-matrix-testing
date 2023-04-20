@@ -3,7 +3,7 @@ name: Testing GHA Matrix
 on:
   push:
     branches:
-      - "*"
+      - "**"
 
 jobs:
   Build:

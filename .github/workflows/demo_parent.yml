@@ -1,0 +1,17 @@
+name: Test Parent
+on:
+  push:
+    branches:
+      - "**"
+jobs:
+  # Workflows that use other workflows are called "caller" workflows in GHA, see: https://docs.github.com/en/actions/using-workflows/reusing-workflows
+  # This could be any sensible name but used caller for this example to stick with GHA naming
+  caller:
+    uses: ./.github/workflows/demo_child.yml
+    strategy:
+      matrix:
+        client: ${{ fromJson(vars.clients) }} # Repository level variable
+    with:
+      GHA_ENV: ${{ matrix.client }}
+    secrets:
+      NOTREALLYSECRET: ${{ secrets.NOTREALLYSECRET }} # Not passing the value, we're giving the child permission to use this secret
