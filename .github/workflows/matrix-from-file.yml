@@ -28,4 +28,4 @@ jobs:
           echo "Item: ${{ matrix.item }}"
           echo "Colour: ${{ matrix.colour }}"
           echo "Cost: ${{ matrix.cost }}"
-          echo "Env var: ${{ env.MY_VAR }}"
+          echo "Env var: ${{ vars.MY_VAR }}"
